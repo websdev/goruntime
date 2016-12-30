@@ -8,7 +8,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/lyft/goruntime/mocks"
+	stats "github.com/lyft/gostats"
 	"github.com/stretchr/testify/require"
 )
 
@@ -23,7 +23,7 @@ func makeFileInDir(assert *require.Assertions, path string, text string) {
 func TestNilRuntime(t *testing.T) {
 	assert := require.New(t)
 
-	loader := New("", "", &mocks.Scope{})
+	loader := New("", "", stats.NewStore(stats.NewNullSink(), false))
 	snapshot := loader.Snapshot()
 	assert.Equal("", snapshot.Get("foo"))
 	assert.Equal(uint64(100), snapshot.GetInteger("bar", 100))
@@ -48,7 +48,7 @@ func TestRuntime(t *testing.T) {
 	err = os.Symlink(tempDir+"/testdir1", tempDir+"/current")
 	assert.NoError(err)
 
-	loader := New(tempDir+"/current", "app", &mocks.Scope{})
+	loader := New(tempDir+"/current", "app", stats.NewStore(stats.NewNullSink(), false))
 	runtime_update := make(chan int)
 	loader.AddUpdateCallback(runtime_update)
 

@@ -1,8 +1,12 @@
-hash: d5dc891a6a6eb8689c6a9864653edb8694035c7c7e7cd054b76186160bc50862
-updated: 2016-12-10T22:40:48.298307794-05:00
+hash: 4e2d53ee161867a15716f47cb76ec797cc0f0c15ba79510c27e63c91375ef05f
+updated: 2016-12-30T16:58:08.587316865-05:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: 629574ca2a5df945712d3079857300b5e4da0236
+- name: github.com/kelseyhightower/envconfig
+  version: ac12b1f15efba734211a556d8b125110dc538016
+- name: github.com/lyft/gostats
+  version: 509f53e8baca66e1c850cb48e88f59b26e741969
 - name: github.com/Sirupsen/logrus
   version: d26492970760ca5d33129d2d799e34be5c4782eb
 - name: golang.org/x/sys
