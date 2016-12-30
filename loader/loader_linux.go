@@ -11,7 +11,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/lyft/goruntime/snapshot"
 	"github.com/lyft/goruntime/snapshot/entry"
-	"github.com/lyft/goruntime/stats"
+	stats "github.com/lyft/gostats"
 	"golang.org/x/sys/unix"
 
 	logger "github.com/Sirupsen/logrus"
