@@ -10,6 +10,7 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/lyft/goruntime/snapshot"
+	"github.com/lyft/goruntime/snapshot/entry"
 	"github.com/lyft/goruntime/stats"
 	"golang.org/x/sys/unix"
 
@@ -111,7 +112,7 @@ func (l *Loader) walkDirectoryCallback(path string, info os.FileInfo, err error)
 
 		key = strings.Replace(key, "/", ".", -1)
 		stringValue := string(contents)
-		entry := snapshot.NewEntry(stringValue, 0, false)
+		entry := entry.New(stringValue, 0, false)
 
 		uint64Value, err := strconv.ParseUint(strings.TrimSpace(stringValue), 10, 64)
 		if err == nil {
