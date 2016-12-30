@@ -4,9 +4,9 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"reflect"
-	"sort"
 	"testing"
+
+	"sort"
 
 	stats "github.com/lyft/gostats"
 	"github.com/stretchr/testify/require"
@@ -51,7 +51,6 @@ func TestRuntime(t *testing.T) {
 	loader := New(tempDir+"/current", "app", stats.NewStore(stats.NewNullSink(), false))
 	runtime_update := make(chan int)
 	loader.AddUpdateCallback(runtime_update)
-
 	snapshot := loader.Snapshot()
 	assert.Equal("", snapshot.Get("foo"))
 	assert.Equal(uint64(5), snapshot.GetInteger("foo", 5))
@@ -63,9 +62,9 @@ func TestRuntime(t *testing.T) {
 
 	keys := snapshot.Keys()
 	sort.Strings(keys)
-	assert.True(reflect.DeepEqual([]string{"dir.file2", "dir2.file3", "file1"}, keys))
+	assert.EqualValues([]string{"dir.file2", "dir2.file3", "file1"}, keys)
 
-	// Make test files for second runtime snapshot.
+	//// Make test files for second runtime snapshot.
 	makeFileInDir(assert, tempDir+"/testdir2/app/file1", "hello2")
 	makeFileInDir(assert, tempDir+"/testdir2/app/dir/file2", "world2")
 	makeFileInDir(assert, tempDir+"/testdir2/app/dir2/file3", "100")
@@ -85,5 +84,5 @@ func TestRuntime(t *testing.T) {
 
 	keys = snapshot.Keys()
 	sort.Strings(keys)
-	assert.True(reflect.DeepEqual([]string{"dir.file2", "dir2.file3", "file1"}, keys))
+	assert.EqualValues([]string{"dir.file2", "dir2.file3", "file1"}, keys)
 }

@@ -12,12 +12,3 @@ type IFace interface {
 	// @param callback supplies the callback to add.
 	AddUpdateCallback(callback chan<- int)
 }
-
-// Implementation of Loader with no backing store.
-type Nil struct {
-	snapshot snapshot.IFace
-}
-
-func (n *Nil) Snapshot() snapshot.IFace { return n.snapshot }
-
-func (n *Nil) AddUpdateCallback(callback chan<- int) {}

@@ -10,11 +10,10 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/lyft/goruntime/snapshot"
-	"github.com/lyft/goruntime/snapshot/entry"
 	stats "github.com/lyft/gostats"
-	"golang.org/x/sys/unix"
 
 	logger "github.com/Sirupsen/logrus"
+	"github.com/lyft/goruntime/snapshot/entry"
 )
 
 type loaderStats struct {
@@ -131,7 +130,7 @@ func (l *Loader) walkDirectoryCallback(path string, info os.FileInfo, err error)
 func New(runtimePath string, runtimeSubdirectory string, scope stats.Scope) IFace {
 	if runtimePath == "" || runtimeSubdirectory == "" {
 		logger.Warnf("no runtime configuration. using nil loader.")
-		return &Nil{}
+		return NewNil()
 	}
 
 	watcher, err := fsnotify.NewWatcher()
@@ -155,7 +154,7 @@ func New(runtimePath string, runtimeSubdirectory string, scope stats.Scope) IFac
 		for {
 			select {
 			case ev := <-watcher.Events:
-				if ev.Name == runtimePath && (ev.Op&unix.IN_MOVED_TO) != 0 {
+				if ev.Name == runtimePath && (ev.Op&fsnotify.Create == fsnotify.Create) {
 					newLoader.onSymLinkSwap()
 				}
 			case err := <-watcher.Errors:

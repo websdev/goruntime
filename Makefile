@@ -10,4 +10,8 @@ update:
 
 .PHONY: compile-test
 compile-test:
-	go test -cover -race $(shell glide nv)
+	go test -v -cover -race $(shell glide nv)
+
+.PHONY: docker-test
+docker-test:
+	docker run goruntime make compile-test

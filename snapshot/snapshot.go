@@ -36,7 +36,9 @@ type Snapshot struct {
 }
 
 func New() (s *Snapshot) {
-	s = &Snapshot{}
+	s = &Snapshot{
+		entries: make(map[string]*entry.Entry),
+	}
 
 	return
 }
@@ -101,3 +103,9 @@ func (n *Nil) GetInteger(key string, defaultValue uint64) uint64 {
 func (n *Nil) Keys() []string {
 	return []string{}
 }
+
+func (n *Nil) Entries() map[string]*entry.Entry {
+	return map[string]*entry.Entry{}
+}
+
+func (n *Nil) SetEntry(string, *entry.Entry) {}
