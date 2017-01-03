@@ -154,7 +154,6 @@ func New(runtimePath string, runtimeSubdirectory string, scope stats.Scope) IFac
 		for {
 			select {
 			case ev := <-watcher.Events:
-				logger.Warnf("%+v", ev)
 				if ev.Name == runtimePath &&
 					(ev.Op&fsnotify.Write == fsnotify.Write || ev.Op&fsnotify.Create == fsnotify.Create) {
 					newLoader.onSymLinkSwap()
