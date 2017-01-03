@@ -8,6 +8,6 @@ update:
 	glide up
 	glide install
 
-.PHONY: compile-test
-compile-test:
+.PHONY: tests
+tests:
 	go test -cover -race $(shell glide nv)
