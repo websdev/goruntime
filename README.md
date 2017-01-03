@@ -48,7 +48,8 @@ Best Practices
 
 Code that uses runtime configuration should follow these best practices:
 
-1. Do not assume that /srv/runtime_data/current will always be present.  Your code should work even if /srv/runtime_data/current doesn't exist.
+1. Do not assume that /srv/runtime_data/current will always be present.  
+   Your code should work even if /srv/runtime_data/current doesn't exist.
 
 1. Sane defaults.   Your code should do the "right" thing if /srv/runtime_data/current/
    isn't present.  If by default a feature should be on, then its runtime
