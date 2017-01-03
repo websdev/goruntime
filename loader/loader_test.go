@@ -8,9 +8,13 @@ import (
 
 	"sort"
 
+	"time"
+
 	stats "github.com/lyft/gostats"
 	"github.com/stretchr/testify/require"
 )
+
+var nullScope = stats.NewStore(stats.NewNullSink(), false)
 
 func makeFileInDir(assert *require.Assertions, path string, text string) {
 	err := os.MkdirAll(filepath.Dir(path), os.ModeDir|os.ModePerm)
@@ -23,7 +27,7 @@ func makeFileInDir(assert *require.Assertions, path string, text string) {
 func TestNilRuntime(t *testing.T) {
 	assert := require.New(t)
 
-	loader := New("", "", stats.NewStore(stats.NewNullSink(), false))
+	loader := New("", "", nullScope)
 	snapshot := loader.Snapshot()
 	assert.Equal("", snapshot.Get("foo"))
 	assert.Equal(uint64(100), snapshot.GetInteger("bar", 100))
@@ -48,7 +52,7 @@ func TestRuntime(t *testing.T) {
 	err = os.Symlink(tempDir+"/testdir1", tempDir+"/current")
 	assert.NoError(err)
 
-	loader := New(tempDir+"/current", "app", stats.NewStore(stats.NewNullSink(), false))
+	loader := New(tempDir+"/current", "app", nullScope)
 	runtime_update := make(chan int)
 	loader.AddUpdateCallback(runtime_update)
 	snapshot := loader.Snapshot()
@@ -74,6 +78,8 @@ func TestRuntime(t *testing.T) {
 	assert.NoError(err)
 
 	<-runtime_update
+
+	time.Sleep(100 * time.Millisecond)
 
 	snapshot = loader.Snapshot()
 	assert.Equal("", snapshot.Get("foo"))

@@ -81,33 +81,33 @@ type walkError struct {
 	err error
 }
 
-func checkWalkError(err error) {
-	if err != nil {
-		panic(walkError{err})
-	}
-}
-
 func (l *Loader) walkDirectoryCallback(path string, info os.FileInfo, err error) error {
-	defer func() {
-		if e := recover(); e != nil {
-			if localError, ok := e.(walkError); ok {
-				l.stats.loadFailures.Inc()
-				logger.Warnf("runtime: error processing %s: %s", path,
-					localError.err.Error())
-			} else {
-				panic(e)
-			}
-		}
-	}()
+	if err != nil {
+		l.stats.loadFailures.Inc()
+		logger.Warnf("runtime: error processing %s: %s", path, err)
+
+		return nil
+	}
 
 	logger.Debugf("runtime: processing %s", path)
-	checkWalkError(err)
 	if !info.IsDir() {
 		contents, err := ioutil.ReadFile(path)
-		checkWalkError(err)
+
+		if err != nil {
+			l.stats.loadFailures.Inc()
+			logger.Warnf("runtime: error reading %s: %s", path, err)
+
+			return nil
+		}
 
 		key, err := filepath.Rel(filepath.Join(l.watchPath, l.subdirectory), path)
-		checkWalkError(err)
+
+		if err != nil {
+			l.stats.loadFailures.Inc()
+			logger.Warnf("runtime: error parsing path %s: %s", path, err)
+
+			return nil
+		}
 
 		key = strings.Replace(key, "/", ".", -1)
 		stringValue := string(contents)
