@@ -1,6 +1,6 @@
 package snapshot
 
-import "github.com/lyft/goruntime/snapshot/entry"
+import "github.com/websdev/goruntime/snapshot/entry"
 
 // Implementation of Snapshot for the nilLoaderImpl.
 type Nil struct{}

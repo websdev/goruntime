@@ -1,6 +1,6 @@
 package snapshot
 
-import "github.com/lyft/goruntime/snapshot/entry"
+import "github.com/websdev/goruntime/snapshot/entry"
 
 // Snapshot provides the currently loaded set of runtime values.
 type IFace interface {

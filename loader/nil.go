@@ -1,6 +1,6 @@
 package loader
 
-import "github.com/lyft/goruntime/snapshot"
+import "github.com/websdev/goruntime/snapshot"
 
 // Implementation of Loader with no backing store.
 type Nil struct {

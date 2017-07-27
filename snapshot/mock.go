@@ -1,6 +1,6 @@
 package snapshot
 
-import "github.com/lyft/goruntime/snapshot/entry"
+import "github.com/websdev/goruntime/snapshot/entry"
 
 // Mock provides a Snapshot implementation for testing
 type Mock struct {

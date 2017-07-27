@@ -9,8 +9,8 @@ import (
 	"sync"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/lyft/goruntime/snapshot"
-	"github.com/lyft/goruntime/snapshot/entry"
+	"github.com/websdev/goruntime/snapshot"
+	"github.com/websdev/goruntime/snapshot/entry"
 	stats "github.com/lyft/gostats"
 
 	logger "github.com/Sirupsen/logrus"

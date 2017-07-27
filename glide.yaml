@@ -1,4 +1,4 @@
-package: github.com/lyft/goruntime
+package: github.com/websdev/goruntime
 import:
 - package: github.com/Sirupsen/logrus
   version: ~0.11.0
