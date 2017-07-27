@@ -148,7 +148,7 @@ func New(runtimePath string, runtimeSubdirectory string, scope stats.Scope, refr
 		logger.Warnf("no runtime configuration. using nil loader.")
 		return NewNil()
 	}
-	watchedPath := refresher.WatchDirectory(runtimePath, runtimeSubdirectory)
+	// watchedPath := refresher.WatchDirectory(runtimePath, runtimeSubdirectory)
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
