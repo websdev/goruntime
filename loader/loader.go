@@ -155,7 +155,7 @@ func New(runtimePath string, runtimeSubdirectory string, scope stats.Scope, refr
 		logger.Fatalf("unable to create runtime watcher %+v", err)
 	}
 
-	err = watcher.Add(watchedPath)
+	// err = watcher.Add(watchedPath)
 
 	if err != nil {
 		logger.Fatalf("unable to create runtime watcher %+v", err)
